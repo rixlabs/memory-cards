@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <DecksComponent />
+  <div>
+    Exercise
   </div>
 </template>
 
@@ -8,10 +8,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import DecksComponent from '@/components/DecksComponent.vue'; // @ is an alias to /src
 
-@Component({
-  components: {
-    DecksComponent,
-  },
-})
-export default class Home extends Vue {}
+@Component
+export default class Exercise extends Vue {}
 </script>
