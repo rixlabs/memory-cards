@@ -10,7 +10,7 @@ export interface Deck {
     uid: string;
 }
 
-export interface DeckState {
+export interface DecksState {
     decks: Deck[];
     currentDeckId?: string;
 }

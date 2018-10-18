@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { DeckState, Deck, Card } from '../store/decks/types';
+import { DecksState, Deck, Card } from '../store/decks/types';
 
 @Component
 export default class CardComponent extends Vue {
