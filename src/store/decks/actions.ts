@@ -7,9 +7,7 @@ import { decksCollection } from '../../config/db';
 export const actions: ActionTree<DeckState, RootState> = {
       init({ commit }) {
         decksCollection.onSnapshot((snapshot: any) => {
-          console.log(snapshot)
           snapshot.docChanges().forEach((change: any) => {
-            console.log(change)
             if (change.type === 'added' || change.type === 'modified') {
               commit('ADD_DECK', {
                 id: change.doc.id,
@@ -32,7 +30,6 @@ export const actions: ActionTree<DeckState, RootState> = {
           const cardsRef = deck.data().cards;
           const newCards = JSON.parse(JSON.stringify(cardsRef));
           newCards.push(newCard.data);
-          console.log(newCard.deckId);
           decksCollection.doc(newCard.deckId).update({ cards: newCards });
         });
       },
