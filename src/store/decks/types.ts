@@ -11,6 +11,6 @@ export interface Deck {
 }
 
 export interface DeckState {
-    decks?: Deck[];
-    currentDeck?: Deck;
+    decks: Deck[];
+    currentDeckId?: string;
 }

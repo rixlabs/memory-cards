@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import DecksComponent from '@/components/DecksComponent.vue';
 import Vuex from 'vuex';
-import { DeckState, Deck, Card } from '../../src/store/deck/types';
-import { deck } from '../../src/store/deck';
+import { DeckState, Deck, Card } from '../../src/store/decks/types';
+import { decks } from '../../src/store/decks';
 
 const localVue = createLocalVue();
 
@@ -15,7 +15,7 @@ describe('DecksComponent.vue', () => {
   beforeEach(() => {
     store = new Vuex.Store({
       modules: {
-        deck,
+        decks,
       },
     });
   });

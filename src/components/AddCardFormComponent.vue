@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { mapActions, mapState } from 'vuex';
-import { DeckState, Deck, Card } from '../store/deck/types';
+import { DeckState, Deck, Card } from '../store/decks/types';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component

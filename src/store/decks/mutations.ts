@@ -12,8 +12,8 @@ export const mutations: MutationTree<DeckState> = {
       ADD_DECK(state: any, deck: any) {
         state.decks.push(deck);
       },
-      SET_CURRENT_DECK(state: any, deck: any) {
-        state.currentDeck = deck;
+      SET_CURRENT_DECK(state: any, deckId: string) {
+        state.currentDeckId = deckId;
       },
       CLEAR_STATE(state: any) {
         state.decks = [];

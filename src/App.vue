@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <div class="container">
-      <div class="float-right">
-        <div v-if="isLoggedIn()">{{ userAuth.displayName }} <small v-on:click="signOut()" icon="sign-out-alt"> | logout</small></div>
-        <button v-if="!isLoggedIn()"  v-on:click="signiIn()">SignIn</button>
-      </div>
-    </div>
+
+      
+
     
-    <div class="container" v-if="isLoggedIn()">
+    <div class="container" >
+      <div class="float-right">
+        <div v-if="userAuth">{{ userAuth.displayName }}<small v-on:click="signOut()" icon="sign-out-alt"> {{ userAuth.uid}} | logout</small></div>
+        <button v-if="!isLoggedIn(userAuth)"  v-on:click="signiIn()">SignIn</button>
+      </div>
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/exercise">Exercise</router-link> |
@@ -27,12 +28,12 @@ import _ from 'lodash';
 
 @Component
 export default class App extends Vue {
-  private userAuth: any = {};
-  private signiIn( ) {
+  public userAuth: any = { displayName: ''};
+  public signiIn( ) {
       auth.signInWithRedirect(authProvider);
   }
 
-  private signOut() {
+  public signOut() {
     auth.signOut().then(() => {
       this.$store.dispatch('deck/clear');
       this.userAuth = {};
@@ -41,7 +42,7 @@ export default class App extends Vue {
     });
   }
 
-  private isLoggedIn(user: any) {
+  public isLoggedIn(user: any) {
     return _.has(this.userAuth, 'displayName');
   }
 
@@ -66,7 +67,7 @@ export default class App extends Vue {
       this.userAuth = userAuth;
     });
 
-    this.$store.dispatch('deck/init');
+    this.$store.dispatch('decks/init');
   }
 }
 

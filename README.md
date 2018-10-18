@@ -29,3 +29,18 @@ npm run lint
 ```
 npm run test:unit
 ```
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth.uid != null;
+    }
+  }
+}
+
+
+<div v-if="getCurrentDeck">
+      <cardGrid :deck="getCurrentDeck"></cardGrid>
+      <hr />
+      <addCardFormComponent  :deck="getCurrentDeck" />
+      xx{{ currentUser }}xx
+    </div>

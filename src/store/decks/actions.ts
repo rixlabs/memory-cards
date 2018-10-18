@@ -5,21 +5,12 @@ import { decksCollection } from '../../config/db';
 
 
 export const actions: ActionTree<DeckState, RootState> = {
-    /* fetchDecks({ commit }) {
-        decksCollection.get().then((querySnapshot: any) => {
-          const fetchedDecks: any[] = [];
-          querySnapshot.forEach((doc: any) => {
-            fetchedDecks.push(doc.data());
-          });
-          // var stub = [{name: 'test'},{name: 'poldo'}]
-          commit('SET_DECKS', fetchedDecks);
-        });
-      }, */
       init({ commit }) {
-        // commit('CLEAR_STATE', '');
         decksCollection.onSnapshot((snapshot: any) => {
+          console.log(snapshot)
           snapshot.docChanges().forEach((change: any) => {
-            if (change.type === 'added') {
+            console.log(change)
+            if (change.type === 'added' || change.type === 'modified') {
               commit('ADD_DECK', {
                 id: change.doc.id,
                 ...change.doc.data(),
@@ -28,16 +19,20 @@ export const actions: ActionTree<DeckState, RootState> = {
           });
         });
       },
-      currentDeckInit({ commit }, deckId: string) {
+      setCurrentDeck({ commit }, deckId: string) {
+          commit('SET_CURRENT_DECK', deckId);
+      },
+      /* currentDeckInit({ commit }, deckId: string) {
         decksCollection.doc(deckId).onSnapshot((doc: any) => {
           commit('SET_CURRENT_DECK', { id: deckId, ...doc.data() });
         });
-      },
+      }, */
       addCardToCurrentDeck({ commit }, newCard: any) {
         decksCollection.doc(newCard.deckId).get().then((deck: any) => {
           const cardsRef = deck.data().cards;
           const newCards = JSON.parse(JSON.stringify(cardsRef));
           newCards.push(newCard.data);
+          console.log(newCard.deckId);
           decksCollection.doc(newCard.deckId).update({ cards: newCards });
         });
       },

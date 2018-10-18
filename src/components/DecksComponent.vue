@@ -4,35 +4,45 @@
         <thead>
             <tr>
             <th>Name</th>
+            <th>Cards</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="aDeck of decks" :key="aDeck.id" v-on:click="setCurrentDeck(aDeck.id)">
                 <td>{{ aDeck.name }}</td>
+                <td>
+                  <ul>
+                    <li v-for="card of aDeck.cards">{{ card }}</li>
+                  </ul>
+                </td>
             </tr>
         </tbody>
     </table> 
-    <div v-if="currentDeck">
-      <cardGrid :deck="currentDeck"></cardGrid>
+    AAA{{ getDeckById(currentDeckId) }}AAA
+    <div v-if="getDeckById(currentDeckId)">
+      <cardGrid :deck="getDeckById(currentDeckId)"></cardGrid>
       <hr />
-      <addCardFormComponent :deck="currentDeck" />
+      <addCardFormComponent  :deck="getDeckById(currentDeckId)" />
     </div>
+    {{ currentDeckId }}
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { mapActions, mapState } from 'vuex';
-import { DeckState, Deck, Card } from '../store/deck/types';
+import { mapActions, mapState, mapGetters } from 'vuex';
+import { DeckState, Deck, Card } from '../store/decks/types';
 import CardGrid from './CardGrid.vue';
 import AddCardFormComponent from './AddCardFormComponent.vue';
+import { currentUser } from '../config/db';
 
 @Component({
   computed: {
-    ...mapState('deck', {
+    ...mapState('decks', {
       decks: (state: DeckState) => state.decks,
-      currentDeck: (state: DeckState) => state.currentDeck,
+      currentDeckId: (state: DeckState) => state.currentDeckId,
     }),
+    ...mapGetters('decks', ['getDeckById']),
   },
   components: {
     cardGrid: CardGrid,
@@ -41,10 +51,14 @@ import AddCardFormComponent from './AddCardFormComponent.vue';
 })
 export default class DecksComponent extends Vue {
   public newCardData: Card = {front: '', back: ''};
-  @Prop() private msg!: string;
 
   public setCurrentDeck(deckId: string) {
-      this.$store.dispatch('deck/currentDeckInit', deckId);
+    this.$store.dispatch('deck/setCurrentDeck', deckId);
+    // this.$store.dispatch('deck/currentDeckInit', deckId);
+  }
+
+  get currentUser() {
+    return currentUser;
   }
   /*
   public currentDeckIsSet() {
