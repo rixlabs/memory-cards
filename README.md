@@ -1,5 +1,7 @@
 # memory-cards
 
+[![Build Status](https://travis-ci.org/rixlabs/memory-cards.svg?branch=master)](https://travis-ci.org/rixlabs/memory-cards)
+
 ## Project setup
 ```
 npm install
