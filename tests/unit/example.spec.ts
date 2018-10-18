@@ -3,8 +3,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils';
 import DecksComponent from '@/components/DecksComponent.vue';
 import Vuex from 'vuex';
 import { DeckState, Deck, Card } from '../../src/store/decks/types';
-import { decks as oriDecks } from '../../src/store/decks';
-import { ActionTree } from 'vuex';
+import { ActionTree, GetterTree } from 'vuex';
 import { RootState } from '../../src/store/types';
 
 const localVue = createLocalVue();
@@ -27,6 +26,10 @@ describe('DecksComponent.vue', () => {
       clear: (obj: any) => undefined,
     };
 
+    const getters: GetterTree<DeckState, RootState> = {
+      getDeckById: (obj: any) => (deckId: string) => undefined,
+    };
+
     const namespaced: boolean = true;
     store = new Vuex.Store({
       modules: {
@@ -34,7 +37,7 @@ describe('DecksComponent.vue', () => {
           namespaced,
           state,
           actions,
-          getters: oriDecks.getters,
+          getters,
         },
       },
     });

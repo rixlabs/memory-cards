@@ -34,7 +34,6 @@ import { mapActions, mapState, mapGetters } from 'vuex';
 import { DeckState, Deck, Card } from '../store/decks/types';
 import CardGrid from './CardGrid.vue';
 import AddCardFormComponent from './AddCardFormComponent.vue';
-import { currentUser } from '../config/db';
 
 @Component({
   computed: {
@@ -53,13 +52,10 @@ export default class DecksComponent extends Vue {
   public newCardData: Card = {front: '', back: ''};
 
   public setCurrentDeck(deckId: string) {
-    this.$store.dispatch('deck/setCurrentDeck', deckId);
+    this.$store.dispatch('decks/setCurrentDeck', deckId);
     // this.$store.dispatch('deck/currentDeckInit', deckId);
   }
 
-  get currentUser() {
-    return currentUser;
-  }
   /*
   public currentDeckIsSet() {
       return Object.keys(this.currentDeck).length !== 0;
