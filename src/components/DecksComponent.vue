@@ -4,21 +4,14 @@
         <thead>
             <tr>
             <th>Name</th>
-            <th>Cards</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="aDeck of decks" :key="aDeck.id" v-on:click="setCurrentDeck(aDeck.id)">
                 <td>{{ aDeck.name }}</td>
-                <td>
-                  <ul>
-                    <li v-for="card of aDeck.cards">{{ card }}</li>
-                  </ul>
-                </td>
             </tr>
         </tbody>
     </table> 
-    AAA{{ getDeckById(currentDeckId) }}AAA
     <div v-if="getDeckById(currentDeckId)">
       <cardGrid :deck="getDeckById(currentDeckId)"></cardGrid>
       <hr />
