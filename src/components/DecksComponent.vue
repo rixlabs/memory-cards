@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <addDeckComponent />
     <table>
         <thead>
             <tr>
@@ -17,7 +18,6 @@
       <hr />
       <addCardFormComponent  :deck="currentDeck" />
     </div>
-    aaa{{ currentDeck }}aaa
   </div>
 </template>
 
@@ -28,6 +28,7 @@ import { DecksState, Deck, Card } from '../store/decks/types';
 import { CurrentDeckState } from '../store/currentDeck/types';
 import CardGrid from './CardGrid.vue';
 import AddCardFormComponent from './AddCardFormComponent.vue';
+import AddDeckComponent from './AddDeckFormComponent.vue';
 
 @Component({
   computed: {
@@ -43,6 +44,7 @@ import AddCardFormComponent from './AddCardFormComponent.vue';
   components: {
     cardGrid: CardGrid,
     addCardFormComponent: AddCardFormComponent,
+    addDeckComponent: AddDeckComponent,
   },
 })
 export default class DecksComponent extends Vue {

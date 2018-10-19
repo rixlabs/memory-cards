@@ -4,7 +4,7 @@ export interface Card {
 }
 
 export interface Deck {
-    id: string;
+    id?: string;
     name: string;
     cards: Card[];
     uid: string;

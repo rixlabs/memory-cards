@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-
-      
-
-    
     <div class="container" >
       <div class="float-right">
         <div v-if="userAuth">{{ userAuth.displayName }}<small v-on:click="signOut()" icon="sign-out-alt"> {{ userAuth.uid}} | logout</small></div>
@@ -24,9 +20,16 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 import firebase from 'firebase';
 import { auth, authProvider } from './config/db';
+import { UserProfileState } from './store/userProfile/types';
 import _ from 'lodash';
 
-@Component
+@Component({
+  computed: {
+    ...mapState('userProfile', {
+      userProfile: (state: UserProfileState) => state.userProfile,
+    }),
+  },
+})
 export default class App extends Vue {
   public userAuth: any = { displayName: ''};
   public signiIn( ) {
@@ -51,7 +54,13 @@ export default class App extends Vue {
       // The signed-in user info.
       const authUser = result.user;
       this.userAuth = authUser;
-      // this.$store.dispatch('user/currentUserInit', _.clone(authUser));
+      if (authUser) {
+        this.$store.dispatch('userProfile/setCurrentUser', {
+          uid: authUser.uid,
+          displayName: authUser.displayName,
+          email: authUser.email,
+        });
+      }
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -65,6 +74,13 @@ export default class App extends Vue {
 
     auth.onAuthStateChanged((userAuth) => {
       this.userAuth = userAuth;
+      if (userAuth) {
+        this.$store.dispatch('userProfile/setCurrentUser', {
+          uid: userAuth.uid,
+          displayName: userAuth.displayName,
+          email: userAuth.email,
+        });
+      }
     });
 
     this.$store.dispatch('decks/init');

@@ -20,4 +20,7 @@ export const actions: ActionTree<DecksState, RootState> = {
       clear({ commit }) {
         commit('CLEAR_STATE', '');
       },
+      addNewDeck({ commit }, newDeck: Deck) {
+        decksCollection.add(newDeck);
+      },
 };
