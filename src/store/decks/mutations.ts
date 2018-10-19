@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex';
-import { DeckState, Deck } from './types';
+import { DecksState, Deck } from './types';
 
-export const mutations: MutationTree<DeckState> = {
+export const mutations: MutationTree<DecksState> = {
     SET_DECKS(state: any, val: any) {
         if (val) {
           state.decks = val;

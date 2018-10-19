@@ -12,27 +12,31 @@
             </tr>
         </tbody>
     </table> 
-    <div v-if="getDeckById(currentDeckId)">
-      <cardGrid :deck="getDeckById(currentDeckId)"></cardGrid>
+    <div v-if="currentDeck">
+      <cardGrid :deck="currentDeck"></cardGrid>
       <hr />
-      <addCardFormComponent  :deck="getDeckById(currentDeckId)" />
+      <addCardFormComponent  :deck="currentDeck" />
     </div>
-    {{ currentDeckId }}
+    aaa{{ currentDeck }}aaa
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapActions, mapState, mapGetters } from 'vuex';
-import { DeckState, Deck, Card } from '../store/decks/types';
+import { DecksState, Deck, Card } from '../store/decks/types';
+import { CurrentDeckState } from '../store/currentDeck/types';
 import CardGrid from './CardGrid.vue';
 import AddCardFormComponent from './AddCardFormComponent.vue';
 
 @Component({
   computed: {
     ...mapState('decks', {
-      decks: (state: DeckState) => state.decks,
-      currentDeckId: (state: DeckState) => state.currentDeckId,
+      decks: (state: DecksState) => state.decks,
+      currentDeckId: (state: DecksState) => state.currentDeckId,
+    }),
+    ...mapState('currentDeck', {
+      currentDeck: (state: CurrentDeckState) => state.deck,
     }),
     ...mapGetters('decks', ['getDeckById']),
   },
@@ -45,15 +49,8 @@ export default class DecksComponent extends Vue {
   public newCardData: Card = {front: '', back: ''};
 
   public setCurrentDeck(deckId: string) {
-    this.$store.dispatch('decks/setCurrentDeck', deckId);
-    // this.$store.dispatch('deck/currentDeckInit', deckId);
+    this.$store.dispatch('currentDeck/setCurrentDeck', deckId);
   }
-
-  /*
-  public currentDeckIsSet() {
-      return Object.keys(this.currentDeck).length !== 0;
-  }
-  */
 }
 </script>
 

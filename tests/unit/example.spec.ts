@@ -1,8 +1,9 @@
+import { CurrentDeckState } from './../../src/store/currentDeck/types';
 import { expect } from 'chai';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import DecksComponent from '@/components/DecksComponent.vue';
 import Vuex from 'vuex';
-import { DeckState, Deck, Card } from '../../src/store/decks/types';
+import { DecksState, Deck, Card } from '../../src/store/decks/types';
 import { ActionTree, GetterTree } from 'vuex';
 import { RootState } from '../../src/store/types';
 
@@ -14,20 +15,28 @@ describe('DecksComponent.vue', () => {
   let store: any;
 
   beforeEach(() => {
-    const state: DeckState = {
+    const state: DecksState = {
       decks: [],
       currentDeckId: undefined,
     };
 
-    const actions: ActionTree<DeckState, RootState> = {
+    const actions: ActionTree<DecksState, RootState> = {
       init: () => undefined,
       setCurrentDeck: (obj: any, deckId: string) => undefined,
       addCardToCurrentDeck: (obj: any, newCard: any) => undefined,
       clear: (obj: any) => undefined,
     };
 
-    const getters: GetterTree<DeckState, RootState> = {
+    const getters: GetterTree<DecksState, RootState> = {
       getDeckById: (obj: any) => (deckId: string) => undefined,
+    };
+
+    const deckState: CurrentDeckState = {
+      deck: undefined,
+    };
+
+    const deckActions: ActionTree<DecksState, RootState> = {
+      setCurrentDeck: (obj: any, deckId: string) => undefined,
     };
 
     const namespaced: boolean = true;
@@ -38,6 +47,11 @@ describe('DecksComponent.vue', () => {
           state,
           actions,
           getters,
+        },
+        currentDeck: {
+          namespaced,
+          state: deckState,
+          actions: deckActions,
         },
       },
     });

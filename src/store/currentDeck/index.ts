@@ -1,21 +1,18 @@
 import { Module } from 'vuex';
-import { getters} from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { DecksState } from './types';
+import { CurrentDeckState } from './types';
 import { RootState } from '../types';
 
-export const state: DecksState = {
-    decks: [],
-    currentDeckId: undefined,
+export const state: CurrentDeckState = {
+    deck: undefined,
 };
 
 const namespaced: boolean = true;
 
-export const decks: Module<DecksState, RootState> = {
+export const currentDeck: Module<CurrentDeckState, RootState> = {
     namespaced,
     state,
-    getters,
     actions,
     mutations,
 };

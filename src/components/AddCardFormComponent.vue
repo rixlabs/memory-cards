@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { mapActions, mapState } from 'vuex';
-import { DeckState, Deck, Card } from '../store/decks/types';
+import { Deck, Card } from '../store/decks/types';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
@@ -18,7 +18,7 @@ export default class AddCardFormComponent extends Vue {
     private newCardData: any = {};
 
     private addNewCardToCurrentDeck(newCardData: any) {
-        this.$store.dispatch('deck/addCardToCurrentDeck', {deckId: this.deck.id, data: newCardData});
+        this.$store.dispatch('currentDeck/addCardToCurrentDeck', {deckId: this.deck.id, data: newCardData});
         this.newCardData = {};
     }
 }

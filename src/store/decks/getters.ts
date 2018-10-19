@@ -1,8 +1,8 @@
 import { GetterTree } from 'vuex';
-import { DeckState, Deck } from './types';
+import { DecksState, Deck } from './types';
 import { RootState } from '../types';
 
-export const getters: GetterTree<DeckState, RootState> = {
+export const getters: GetterTree<DecksState, RootState> = {
     getDeckById: (state) => (deckId: string) => {
         return state.decks.find((deck) => deck.id === deckId);
     },

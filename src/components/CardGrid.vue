@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import CardComponent from './CardComponent.vue';
-import { DeckState, Deck, Card } from '../store/decks/types';
+import { DecksState, Deck, Card } from '../store/decks/types';
 
 @Component({
   components: {
