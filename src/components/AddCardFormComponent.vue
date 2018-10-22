@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="clearfix">
         <input type="text" v-model="newCardData.front" placeholder="Front">
         <input type="text" v-model="newCardData.back" placeholder="Back">
-        <button  v-on:click="addNewCardToCurrentDeck(newCardData)">Add new card</button>
+        <button class="float-right"  v-on:click="addNewCardToCurrentDeck(newCardData)">Add new card</button>
     </div>
 </template>
 

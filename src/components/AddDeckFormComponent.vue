@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="clearfix">
         <input type="text" v-model="newDeckData.name" placeholder="Name">
-        <button  v-on:click="addNewDeck(newDeckData)">Add new card</button>
+        <button class="float-right" v-on:click="addNewDeck(newDeckData)">Add new card</button>
     </div>
 </template>
 

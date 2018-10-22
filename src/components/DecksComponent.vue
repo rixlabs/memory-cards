@@ -1,6 +1,10 @@
 <template>
-  <div class="hello">
-    <addDeckComponent />
+  <div>
+    <h1>All Decks </h1><a v-show="!showDeckForm" v-on:click="showDeckForm = true">add</a>
+    <div class="clearfix">
+      <span class="float-right" v-show="showDeckForm" v-on:click="showDeckForm = false">close X</span>
+      <addDeckComponent v-if="showDeckForm" />
+    </div>
     <table>
         <thead>
             <tr>
@@ -13,11 +17,6 @@
             </tr>
         </tbody>
     </table> 
-    <div v-if="currentDeck">
-      <cardGrid :deck="currentDeck"></cardGrid>
-      <hr />
-      <addCardFormComponent  :deck="currentDeck" />
-    </div>
   </div>
 </template>
 
@@ -49,15 +48,26 @@ import AddDeckComponent from './AddDeckFormComponent.vue';
 })
 export default class DecksComponent extends Vue {
   public newCardData: Card = {front: '', back: ''};
+  public showDeckForm: boolean = false;
 
   public setCurrentDeck(deckId: string) {
     this.$store.dispatch('currentDeck/setCurrentDeck', deckId);
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'currentDeck/SET_CURRENT_DECK') {
+        this.$router.push({ name: 'deck', params: { uid: deckId }});
+      }
+    });
+
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h1 {
+  display: inline;
+}
+
 h3 {
   margin: 40px 0 0;
 }

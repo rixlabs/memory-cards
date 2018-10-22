@@ -1,8 +1,14 @@
 <template>
     <div class="card">
         <div class="card-content">
-            <h2 v-if="!turn || showAll">front: {{ card.front }}</h2>
-            <h2 v-if="turn || showAll">back: {{ card.back }}</h2>
+            <div v-if="!turn || showAll">
+                <h2>front</h2>
+                {{ card.front }}
+            </div>
+            <div v-if="turn || showAll">
+                <h2>back</h2>
+                {{ card.back }}
+            </div>
         </div>
         <div class="card-footer">
             <button type="button" class="button button-outline " v-on:click="turn = !turn">TURN</button>
@@ -27,6 +33,7 @@ export default class CardComponent extends Vue {
   height: 250px;
   border: 1px solid gray;
   border-radius: 4px;
+  text-align: center;
 }
 .card-content {
   height: 200px;  
