@@ -1,7 +1,12 @@
 <template>
     <div class="container">
-        <div class="gridContainer">
-            <card v-for="card of deck.cards" :key="deck.cards.indexOf(card)" :card="card"></card>
+        <div v-if="currentDeck">
+            <h1>{{ currentDeck.name }}</h1>
+            <div v-if="currentDeck.cards.length > 0" class="gridContainer">
+                <card v-for="card of currentDeck.cards" :key="currentDeck.cards.indexOf(card)" :card="card"></card>
+            </div>
+            <hr/>
+            <addCardFormComponent :deck="currentDeck" />
         </div>
     </div>
 </template>
@@ -10,14 +15,29 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import CardComponent from './CardComponent.vue';
 import { DecksState, Deck, Card } from '../store/decks/types';
+import { mapActions, mapState, mapGetters } from 'vuex';
+import { CurrentDeckState } from '../store/currentDeck/types';
+import AddCardFormComponent from '@/components/AddCardFormComponent.vue';
 
 @Component({
-  components: {
+    components: {
         card: CardComponent,
+        addCardFormComponent: AddCardFormComponent,
+    },
+    computed: {
+        ...mapState('currentDeck', {
+            currentDeck: (state: CurrentDeckState) => state.deck,
+        }),
     },
 })
 export default class CardGrid extends Vue {
-    @Prop() private deck!: Deck;
+    @Prop() public uid!: string;
+
+    private beforeMount() {
+        if (!this.$store.state.currentDeck.currentDeck && this.uid) {
+            this.$store.dispatch('currentDeck/setCurrentDeck', this.uid);
+        }
+    }
 }
 
 </script>

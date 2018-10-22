@@ -1,7 +1,9 @@
+import { currentDeck } from './store/currentDeck/index';
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Exercise from './views/Exercise.vue';
+import CurrentDeck from './views/CurrentDeck.vue';
 
 Vue.use(Router);
 
@@ -11,6 +13,12 @@ const router: Router = new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/deck/:uid',
+      name: 'deck',
+      component: CurrentDeck,
+      props: true,
     },
     {
       path: '/about',
