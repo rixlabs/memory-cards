@@ -2,12 +2,12 @@
     <div class="card">
         <div class="card-content">
             <div v-if="!turn || showAll">
-                <h2>front</h2>
-                {{ card.front }}
+                <div class="card-side">&nbsp;</div>
+                <span class="card-text">{{ card.front }}</span>
             </div>
             <div v-if="turn || showAll">
-                <h2>back</h2>
-                {{ card.back }}
+                <div class="card-side">*</div>
+                <span class="card-text">{{ card.back }}</span>
             </div>
         </div>
         <div class="card-footer">
@@ -48,5 +48,15 @@ export default class CardComponent extends Vue {
   background: #fafafa;
   border-top: 1px solid #eeeeee;
   z-index: 99;
+}
+
+.card-text {
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.card-side {
+    text-align: left;
+    padding: 2px;
 }
 </style>
