@@ -1,13 +1,17 @@
 <template>
   <div>
-    Exercise
+    <ExercisesComponent />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import DecksComponent from '@/components/DecksComponent.vue'; // @ is an alias to /src
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import ExercisesComponent from '@/components/ExercisesComponent.vue';
 
-@Component
+@Component({
+  components: {
+    ExercisesComponent,
+  },
+})
 export default class Exercise extends Vue {}
 </script>
