@@ -1,10 +1,9 @@
 <template>
     <div class="clearfix">
-
         <cardComponent v-if="shuffledDeck.length > 0" :card="shuffledDeck[cardIndex]" />
-            <div class="controls">
-                <button v-on:click="previousCard()">Previous</button> <button v-on:click="nextCard()">Next</button>
-            </div>
+        <div class="controls">
+            <button v-on:click="previousCard()">Previous</button> <button v-on:click="nextCard()">Next</button>
+        </div>
     </div>
 </template>
 
