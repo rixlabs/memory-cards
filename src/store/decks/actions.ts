@@ -18,6 +18,7 @@ export const actions: ActionTree<DecksState, RootState> = {
       });
     });
   },
+
   clear({ commit }) {
     commit('CLEAR_STATE', '');
   },
